@@ -1,0 +1,38 @@
+﻿@model TestApp2.Models.ProcessFile
+
+@{
+    ViewData["Title"] = "ReviewFile";
+}
+
+<h3>Review File</h3>
+<hr />
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+    </dl>
+    <hr />
+    <div class="row">
+        <div class="col-md-2">
+            <form asp-action="ReviewFile">
+                <input type="hidden" asp-for="Id" />
+                <label class="control-label">Status</label>
+                <select name="Status" class="form-control" required>
+                    <option value="">---Select Status---</option>
+                    <option value="true">Accept</option>
+                    <option value="false">Reject</option>
+                </select>
+                <br />
+                <input type="submit" value="Submit" class="btn btn-success" />
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

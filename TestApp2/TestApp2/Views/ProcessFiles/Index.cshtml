@@ -1,0 +1,56 @@
+﻿@model IEnumerable<TestApp2.Models.ProcessFile>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h3>File Index</h3>
+<hr />
+<div style="float:right;">
+    <button id="pbtn" class="btn btn-success" onclick="PrintDiv();"><i class="glyphicon glyphicon-print"></i> Print</button>
+</div>
+<br />
+<br />
+
+<div id="printDivContent">
+    <table class="table table-bordered table-hover" style="width:100%; border:1px solid black; border-collapse:collapse; margin:auto;">
+        <thead>
+            <tr class="bg-primary" style="color:#ffffff;background-color:#337ab7; height:30px;">
+                <th style="border:1px solid black;">
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th style="border:1px solid black;">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr style="height:30px;">
+                    <td style="border:1px solid black;">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td style="border:1px solid black;">
+                        <a asp-action="ReviewFile" asp-route-id="@item.Id" class="btn btn-sm btn-info">Review File</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+        function PrintDiv() {
+            var divContents = document.getElementById("printDivContent").innerHTML;
+            var printWindow = window.open('', '', '');
+            printWindow.document.write('<html><head><title>File Index</title>');
+            printWindow.document.write('</head><body >');
+            printWindow.document.write(divContents);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        }
+    </script>
+}
